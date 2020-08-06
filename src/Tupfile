@@ -1,0 +1,8 @@
+include_rules
+
+EXE := ../bin/cgol
+CXX_LIBS += -I../include
+
+: foreach *.cpp |> !cxx |> {objs}
+: {objs} |> !exe |> $(EXE)
+

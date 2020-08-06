@@ -1,22 +1,20 @@
 #pragma once
 
-#include <algorithm>
 #include <fstream>
-#include <locale>
 #include <string>
 #include <string_view>
 #include <vector>
 
 namespace cgol
 {
-static inline std::string read_file(const std::string& filename)
+static inline std::string read_file(std::string_view filename)
 {
-	std::ifstream stream(filename);
+	std::ifstream stream {filename.data()};
 	if(!stream)
 	{
-		throw std::runtime_error("Error: Could not open file " + filename);
+		throw std::runtime_error("Error: Could not open file to read");
 	}
-	return std::string((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
+	return std::string {std::istreambuf_iterator<char>(stream), std::istreambuf_iterator<char>()};
 }
 
 static inline std::vector<std::string> split_string(const std::string& str,

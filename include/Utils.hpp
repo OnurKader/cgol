@@ -1,12 +1,10 @@
 #pragma once
+
 #include <algorithm>
-#include <cctype>
-#include <cstring>
 #include <fstream>
 #include <locale>
-#include <sstream>
-#include <streambuf>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace cgol
@@ -14,7 +12,7 @@ namespace cgol
 static inline std::string read_file(const std::string& filename)
 {
 	std::ifstream stream(filename);
-	if(stream.fail())
+	if(!stream)
 	{
 		throw std::runtime_error("Error: Could not open file " + filename);
 	}
@@ -22,7 +20,7 @@ static inline std::string read_file(const std::string& filename)
 }
 
 static inline std::vector<std::string> split_string(const std::string& str,
-													const std::string& delimiter)
+													std::string_view delimiter)
 {
 	std::vector<std::string> strings;
 
@@ -40,19 +38,14 @@ static inline std::vector<std::string> split_string(const std::string& str,
 	return strings;
 }
 
-static inline bool starts_with(const std::string& string, const std::string& substring)
-{
-	return string.rfind(substring, 0) == 0;
-}
-
 static inline void ltrim(std::string& s)
 {
-	s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) { return !std::isspace(ch); }));
+	s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](char ch) { return !std::isspace(ch); }));
 }
 
 static inline void rtrim(std::string& s)
 {
-	s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) { return !std::isspace(ch); }).base(),
+	s.erase(std::find_if(s.rbegin(), s.rend(), [](char ch) { return !std::isspace(ch); }).base(),
 			s.end());
 }
 
@@ -80,36 +73,32 @@ static inline std::string trim_copy(std::string s)
 	return s;
 }
 
-static inline std::string strip_left(const std::string& input_string, const std::string& chars)
+static inline std::string strip_left(const std::string& input_string, std::string_view chars)
 {
 	std::string result = input_string;
-	result.erase(result.begin(), std::find_if(result.begin(), result.end(), [&chars](int ch) {
-					 return !std::isspace(ch) and (chars.find(ch) == std::string::npos);
+	result.erase(result.begin(), std::find_if(result.begin(), result.end(), [&chars](char ch) {
+					 return (!std::isspace(ch) && (chars.find(ch) == std::string::npos));
 				 }));
 	return result;
 }
 
-static inline std::string strip_right(const std::string& input_string, const std::string& chars)
+static inline std::string strip_right(const std::string& input_string, std::string_view chars)
 {
 	std::string result = input_string;
 	result.erase(std::find_if(result.rbegin(),
 							  result.rend(),
-							  [&chars](int ch) {
-								  return !std::isspace(ch) and
-										 (chars.find(ch) == std::string::npos);
+							  [&chars](char ch) {
+								  return (!std::isspace(ch) &&
+										  (chars.find(ch) == std::string::npos));
 							  })
 					 .base(),
 				 result.end());
 	return result;
 }
 
-static inline size_t parse_digit_from_char(char c)
+static inline std::size_t parse_digit_from_char(char c) noexcept
 {
-	size_t result;
-	std::stringstream str;
-	str << c;
-	str >> result;
-	return result;
+	return static_cast<std::size_t>(c - '0');
 }
 
 }	 // namespace cgol

@@ -1,5 +1,5 @@
 #pragma once
-#include "rle_parser.hpp"
+#include "RLE_Parser.hpp"
 #include "termcolor.hpp"
 
 #include <string>
@@ -8,17 +8,18 @@
 
 namespace cgol
 {
-class grid
+class Grid
 {
-	std::vector<std::vector<unsigned char>> grid_;	  // Underlying 2D grid, 1 = alive, 0 = dead
-	size_t rows_;									  // Number of rows in the grid
-	size_t cols_;									  // Number of cols in the grid
-	rle_parser parser_;								  // RLE parser to parse pattern files
+	std::vector<std::vector<unsigned char>> m_grid;	   // Underlying 2D grid, 1 = alive, 0 = dead
+	std::size_t m_rows;								   // Number of rows in the grid
+	std::size_t m_cols;								   // Number of cols in the grid
+	RLE_Parser m_parser;							   // RLE parser to parse pattern files
 
 public:
 	// Construct a Game of Life grid from an .rle pattern file
 	// The grid size is used to establish the dimensions of the play area
-	explicit grid(const std::string& rle_filename, const std::pair<size_t, size_t>& grid_size);
+	explicit Grid(const std::string& rle_filename,
+				  const std::pair<std::size_t, std::size_t>& grid_size);
 
 	// Returns the number of rows
 	// Used in main.cpp to move cursor up `rows_` times before printing again

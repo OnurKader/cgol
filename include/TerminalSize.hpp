@@ -22,19 +22,19 @@ size_t terminal_width() { return terminal_size().second; }
 
 #else
 
-#include <sys/ioctl.h>	  //ioctl() and TIOCGWINSZ
+#include <sys/ioctl.h>	  // ioctl() and TIOCGWINSZ
 #include <unistd.h>		  // for STDOUT_FILENO
 
 namespace cgol
 {
-static inline std::pair<size_t, size_t> terminal_size()
+static inline std::pair<std::size_t, std::size_t> terminal_size()
 {
 	struct winsize size;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
-	return {static_cast<size_t>(size.ws_row), static_cast<size_t>(size.ws_col)};
+	return {static_cast<std::size_t>(size.ws_row), static_cast<std::size_t>(size.ws_col)};
 }
 
-static inline size_t terminal_width() { return terminal_size().second; }
+static inline std::size_t terminal_width() { return terminal_size().second; }
 
 }	 // namespace cgol
 

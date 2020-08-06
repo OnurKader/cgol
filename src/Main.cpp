@@ -1,8 +1,8 @@
-#include "cursor_control.hpp"
-#include "cursor_movement.hpp"
-#include "grid.hpp"
-#include "rle_parser.hpp"
-#include "terminal_size.hpp"
+#include "CursorControl.hpp"
+#include "CursorMovement.hpp"
+#include "Grid.hpp"
+#include "RLE_Parser.hpp"
+#include "TerminalSize.hpp"
 
 #include <chrono>
 #include <csignal>
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 	size_t rows = terminal_size.first - 2, cols = (terminal_size.second) / 2;
 
 	// Initiali grid with dimensions {rows, cols}
-	cgol::grid grid(argv[1], {rows, cols});
+	cgol::Grid grid(argv[1], {rows, cols});
 
 	while(true)
 	{

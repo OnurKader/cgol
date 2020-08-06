@@ -23,7 +23,7 @@ static inline void show_console_cursor(bool const show)
 	SetConsoleCursorInfo(out, &cursorInfo);
 }
 #else
-static inline void show_console_cursor(bool const show)
+static inline void show_console_cursor(bool show)
 {
 	std::fputs(show ? "\033[?25h" : "\033[?25l", stdout);
 }

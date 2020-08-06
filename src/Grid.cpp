@@ -1,41 +1,42 @@
-#include "grid.hpp"
+#include "Grid.hpp"
+
 using namespace cgol;
 
-grid::grid(const std::string& rle_filename, const std::pair<size_t, size_t>& grid_size) :
-	rows_ {grid_size.first}, cols_ {grid_size.second}, parser_ {}
+Grid::Grid(const std::string& rle_filename, const std::pair<size_t, size_t>& grid_size) :
+	m_rows {grid_size.first}, m_cols {grid_size.second}, m_parser {}
 {
-	parser_.open(rle_filename, {rows_, cols_});
-	rows_ = parser_.rows();
-	cols_ = parser_.cols();
-	const auto pattern = parser_.pattern();
+	m_parser.open(rle_filename, {m_rows, m_cols});
+	m_rows = m_parser.rows();
+	m_cols = m_parser.cols();
+	const auto pattern = m_parser.pattern();
 
-	for(size_t i = 0; i < rows_; i++)
+	for(size_t i = 0; i < m_rows; i++)
 	{
-		grid_.push_back({});
-		for(size_t j = 0; j < cols_; j++)
+		m_grid.push_back({});
+		for(size_t j = 0; j < m_cols; j++)
 		{
 			if(pattern[i][j] == 'o')
 			{
-				grid_[i].push_back(1);
+				m_grid[i].push_back(1);
 			}
 			else if(pattern[i][j] == 'b')
 			{
-				grid_[i].push_back(0);
+				m_grid[i].push_back(0);
 			}
 		}
 	}
 }
 
-size_t grid::rows() const { return rows_; }
+size_t Grid::rows() const { return m_rows; }
 
-void grid::print(std::ostream& os) const
+void Grid::print(std::ostream& os) const
 {
 	os << termcolor::bold;
-	for(size_t i = 0; i < rows_; i++)
+	for(size_t i = 0; i < m_rows; i++)
 	{
-		for(size_t j = 0; j < cols_; j++)
+		for(size_t j = 0; j < m_cols; j++)
 		{
-			const auto cell = grid_[i][j];
+			const auto cell = m_grid[i][j];
 			if(cell == 1)
 			{
 				os << "██";
@@ -50,56 +51,56 @@ void grid::print(std::ostream& os) const
 	os << termcolor::reset;
 }
 
-void grid::tick()
+void Grid::tick()
 {
-	auto result = grid_;
+	auto result = m_grid;
 
-	const int rows = static_cast<int>(rows_);
-	const int cols = static_cast<int>(cols_);
+	const int rows = static_cast<int>(m_rows);
+	const int cols = static_cast<int>(m_cols);
 
 	for(int i = 0; i < rows; i++)
 	{
 		for(int j = 0; j < cols; j++)
 		{
-			size_t neighbours = 0;
+			std::size_t neighbours = 0;
 
 			if(j - 1 >= 0)
 			{
-				neighbours += grid_[i][j - 1];
+				neighbours += m_grid[i][j - 1];
 				if(i - 1 >= 0)
 				{
-					neighbours += grid_[i - 1][j - 1];
+					neighbours += m_grid[i - 1][j - 1];
 				}
 				if(i + 1 < rows)
 				{
-					neighbours += grid_[i + 1][j - 1];
+					neighbours += m_grid[i + 1][j - 1];
 				}
 			}
 
 			if(j + 1 < cols)
 			{
-				neighbours += grid_[i][j + 1];
+				neighbours += m_grid[i][j + 1];
 				if((i - 1) >= 0)
 				{
-					neighbours += grid_[i - 1][j + 1];
+					neighbours += m_grid[i - 1][j + 1];
 				}
 				if((i + 1) < rows)
 				{
-					neighbours += grid_[i + 1][j + 1];
+					neighbours += m_grid[i + 1][j + 1];
 				}
 			}
 
 			if(i - 1 >= 0)
 			{
-				neighbours += grid_[i - 1][j];
+				neighbours += m_grid[i - 1][j];
 			}
 
 			if(i + 1 < rows)
 			{
-				neighbours += grid_[i + 1][j];
+				neighbours += m_grid[i + 1][j];
 			}
 
-			if(grid_[i][j] == 1)
+			if(m_grid[i][j] == 1)
 			{
 				// Cell is alive
 				if(neighbours < 2 or neighbours > 3)
@@ -127,5 +128,5 @@ void grid::tick()
 			}
 		}
 	}
-	grid_ = result;
+	m_grid = result;
 }

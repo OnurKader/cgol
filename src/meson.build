@@ -6,7 +6,7 @@ project('cgol', 'cpp',
 
 inc = include_directories('../include')
 
-srcs = ['grid.cpp', 'main.cpp', 'rle_parser.cpp']
+srcs = ['Grid.cpp', 'Main.cpp', 'RLE_Parser.cpp']
 
 exe = executable('cgol', srcs,
                      include_directories: inc)

@@ -1,34 +1,42 @@
-#include <cgol/cursor_control.hpp>
-#include <cgol/cursor_movement.hpp>
-#include <cgol/grid.hpp>
-#include <cgol/rle_parser.hpp>
-#include <cgol/terminal_size.hpp>
+#include "cursor_control.hpp"
+#include "cursor_movement.hpp"
+#include "grid.hpp"
+#include "rle_parser.hpp"
+#include "terminal_size.hpp"
+
 #include <chrono>
+#include <csignal>
 #include <thread>
+
 using namespace cgol;
 
-int main(int argc, char *argv[]) {
-  // Hide console cursor
-  cgol::show_console_cursor(false);
+int main(int argc, char* argv[])
+{
+	std::signal(SIGINT, [](int sig) { cgol::show_console_cursor(true); });
 
-  if (argc < 2) {
-    std::cout << "Usage: ./main <pattern>.rle\n";
-    return EXIT_FAILURE;
-  }
+	// Hide console cursor
+	cgol::show_console_cursor(false);
 
-  // Get terminal size and use as bounding box for game of life grid
-  const auto terminal_size = cgol::terminal_size();
-  size_t rows = terminal_size.first - 2, cols = (terminal_size.second) / 2;
+	if(argc < 2)
+	{
+		std::cout << "Usage: ./main <pattern>.rle\n";
+		return EXIT_FAILURE;
+	}
 
-  // Initiali grid with dimensions {rows, cols}
-  cgol::grid grid(argv[1], {rows, cols});
+	// Get terminal size and use as bounding box for game of life grid
+	const auto terminal_size = cgol::terminal_size();
+	size_t rows = terminal_size.first - 2, cols = (terminal_size.second) / 2;
 
-  while (true) {
-    grid.print();
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    move_up(grid.rows());
-    grid.tick();
-  }
+	// Initiali grid with dimensions {rows, cols}
+	cgol::grid grid(argv[1], {rows, cols});
 
-  cgol::show_console_cursor(true);
+	while(true)
+	{
+		grid.print();
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		move_up(grid.rows());
+		grid.tick();
+	}
+
+	cgol::show_console_cursor(true);
 }

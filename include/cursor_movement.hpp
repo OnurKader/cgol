@@ -14,7 +14,7 @@ namespace cgol {
 inline void move(int x, int y) {
   auto hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
   if (!hStdout)
-    return;
+	return;
 
   CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
   GetConsoleScreenBufferInfo(hStdout, &csbiInfo);

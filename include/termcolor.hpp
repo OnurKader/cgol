@@ -69,9 +69,9 @@ inline std::ostream &nocolorize(std::ostream &stream) {
 inline std::ostream &reset(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[00m";
+	stream << "\033[00m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, -1, -1);
+	_internal::win_change_attributes(stream, -1, -1);
 #endif
   }
   return stream;
@@ -80,7 +80,7 @@ inline std::ostream &reset(std::ostream &stream) {
 inline std::ostream &bold(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[1m";
+	stream << "\033[1m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -90,7 +90,7 @@ inline std::ostream &bold(std::ostream &stream) {
 inline std::ostream &dark(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[2m";
+	stream << "\033[2m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -100,7 +100,7 @@ inline std::ostream &dark(std::ostream &stream) {
 inline std::ostream &italic(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[3m";
+	stream << "\033[3m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -110,7 +110,7 @@ inline std::ostream &italic(std::ostream &stream) {
 inline std::ostream &underline(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[4m";
+	stream << "\033[4m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -120,7 +120,7 @@ inline std::ostream &underline(std::ostream &stream) {
 inline std::ostream &blink(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[5m";
+	stream << "\033[5m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -130,7 +130,7 @@ inline std::ostream &blink(std::ostream &stream) {
 inline std::ostream &reverse(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[7m";
+	stream << "\033[7m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -140,7 +140,7 @@ inline std::ostream &reverse(std::ostream &stream) {
 inline std::ostream &concealed(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[8m";
+	stream << "\033[8m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -150,7 +150,7 @@ inline std::ostream &concealed(std::ostream &stream) {
 inline std::ostream &crossed(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[9m";
+	stream << "\033[9m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -160,9 +160,9 @@ inline std::ostream &crossed(std::ostream &stream) {
 template <uint8_t code> inline std::ostream &color(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    char command[12];
-    std::snprintf(command, sizeof(command), "\033[38;5;%dm", code);
-    stream << command;
+	char command[12];
+	std::snprintf(command, sizeof(command), "\033[38;5;%dm", code);
+	stream << command;
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -172,9 +172,9 @@ template <uint8_t code> inline std::ostream &color(std::ostream &stream) {
 template <uint8_t code> inline std::ostream &on_color(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    char command[12];
-    std::snprintf(command, sizeof(command), "\033[48;5;%dm", code);
-    stream << command;
+	char command[12];
+	std::snprintf(command, sizeof(command), "\033[48;5;%dm", code);
+	stream << command;
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -184,9 +184,9 @@ template <uint8_t code> inline std::ostream &on_color(std::ostream &stream) {
 template <uint8_t r, uint8_t g, uint8_t b> inline std::ostream &color(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    char command[20];
-    std::snprintf(command, sizeof(command), "\033[38;2;%d;%d;%dm", r, g, b);
-    stream << command;
+	char command[20];
+	std::snprintf(command, sizeof(command), "\033[38;2;%d;%d;%dm", r, g, b);
+	stream << command;
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -196,9 +196,9 @@ template <uint8_t r, uint8_t g, uint8_t b> inline std::ostream &color(std::ostre
 template <uint8_t r, uint8_t g, uint8_t b> inline std::ostream &on_color(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    char command[20];
-    std::snprintf(command, sizeof(command), "\033[48;2;%d;%d;%dm", r, g, b);
-    stream << command;
+	char command[20];
+	std::snprintf(command, sizeof(command), "\033[48;2;%d;%d;%dm", r, g, b);
+	stream << command;
 #elif defined(TERMCOLOR_OS_WINDOWS)
 #endif
   }
@@ -208,11 +208,11 @@ template <uint8_t r, uint8_t g, uint8_t b> inline std::ostream &on_color(std::os
 inline std::ostream &grey(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[30m";
+	stream << "\033[30m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream,
-                                     0 // grey (black)
-    );
+	_internal::win_change_attributes(stream,
+									 0 // grey (black)
+	);
 #endif
   }
   return stream;
@@ -221,9 +221,9 @@ inline std::ostream &grey(std::ostream &stream) {
 inline std::ostream &red(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[31m";
+	stream << "\033[31m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, FOREGROUND_RED);
+	_internal::win_change_attributes(stream, FOREGROUND_RED);
 #endif
   }
   return stream;
@@ -232,9 +232,9 @@ inline std::ostream &red(std::ostream &stream) {
 inline std::ostream &green(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[32m";
+	stream << "\033[32m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, FOREGROUND_GREEN);
+	_internal::win_change_attributes(stream, FOREGROUND_GREEN);
 #endif
   }
   return stream;
@@ -243,9 +243,9 @@ inline std::ostream &green(std::ostream &stream) {
 inline std::ostream &yellow(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[33m";
+	stream << "\033[33m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, FOREGROUND_GREEN | FOREGROUND_RED);
+	_internal::win_change_attributes(stream, FOREGROUND_GREEN | FOREGROUND_RED);
 #endif
   }
   return stream;
@@ -254,9 +254,9 @@ inline std::ostream &yellow(std::ostream &stream) {
 inline std::ostream &blue(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[34m";
+	stream << "\033[34m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, FOREGROUND_BLUE);
+	_internal::win_change_attributes(stream, FOREGROUND_BLUE);
 #endif
   }
   return stream;
@@ -265,9 +265,9 @@ inline std::ostream &blue(std::ostream &stream) {
 inline std::ostream &magenta(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[35m";
+	stream << "\033[35m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, FOREGROUND_BLUE | FOREGROUND_RED);
+	_internal::win_change_attributes(stream, FOREGROUND_BLUE | FOREGROUND_RED);
 #endif
   }
   return stream;
@@ -276,9 +276,9 @@ inline std::ostream &magenta(std::ostream &stream) {
 inline std::ostream &cyan(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[36m";
+	stream << "\033[36m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, FOREGROUND_BLUE | FOREGROUND_GREEN);
+	_internal::win_change_attributes(stream, FOREGROUND_BLUE | FOREGROUND_GREEN);
 #endif
   }
   return stream;
@@ -287,9 +287,9 @@ inline std::ostream &cyan(std::ostream &stream) {
 inline std::ostream &white(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[37m";
+	stream << "\033[37m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+	_internal::win_change_attributes(stream, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
 #endif
   }
   return stream;
@@ -298,11 +298,11 @@ inline std::ostream &white(std::ostream &stream) {
 inline std::ostream &on_grey(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[40m";
+	stream << "\033[40m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, -1,
-                                     0 // grey (black)
-    );
+	_internal::win_change_attributes(stream, -1,
+									 0 // grey (black)
+	);
 #endif
   }
   return stream;
@@ -311,9 +311,9 @@ inline std::ostream &on_grey(std::ostream &stream) {
 inline std::ostream &on_red(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[41m";
+	stream << "\033[41m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, -1, BACKGROUND_RED);
+	_internal::win_change_attributes(stream, -1, BACKGROUND_RED);
 #endif
   }
   return stream;
@@ -322,9 +322,9 @@ inline std::ostream &on_red(std::ostream &stream) {
 inline std::ostream &on_green(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[42m";
+	stream << "\033[42m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, -1, BACKGROUND_GREEN);
+	_internal::win_change_attributes(stream, -1, BACKGROUND_GREEN);
 #endif
   }
   return stream;
@@ -333,9 +333,9 @@ inline std::ostream &on_green(std::ostream &stream) {
 inline std::ostream &on_yellow(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[43m";
+	stream << "\033[43m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, -1, BACKGROUND_GREEN | BACKGROUND_RED);
+	_internal::win_change_attributes(stream, -1, BACKGROUND_GREEN | BACKGROUND_RED);
 #endif
   }
   return stream;
@@ -344,9 +344,9 @@ inline std::ostream &on_yellow(std::ostream &stream) {
 inline std::ostream &on_blue(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[44m";
+	stream << "\033[44m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, -1, BACKGROUND_BLUE);
+	_internal::win_change_attributes(stream, -1, BACKGROUND_BLUE);
 #endif
   }
   return stream;
@@ -355,9 +355,9 @@ inline std::ostream &on_blue(std::ostream &stream) {
 inline std::ostream &on_magenta(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[45m";
+	stream << "\033[45m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_RED);
+	_internal::win_change_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_RED);
 #endif
   }
   return stream;
@@ -366,9 +366,9 @@ inline std::ostream &on_magenta(std::ostream &stream) {
 inline std::ostream &on_cyan(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[46m";
+	stream << "\033[46m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, -1, BACKGROUND_GREEN | BACKGROUND_BLUE);
+	_internal::win_change_attributes(stream, -1, BACKGROUND_GREEN | BACKGROUND_BLUE);
 #endif
   }
   return stream;
@@ -377,10 +377,10 @@ inline std::ostream &on_cyan(std::ostream &stream) {
 inline std::ostream &on_white(std::ostream &stream) {
   if (_internal::is_colorized(stream)) {
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
-    stream << "\033[47m";
+	stream << "\033[47m";
 #elif defined(TERMCOLOR_OS_WINDOWS)
-    _internal::win_change_attributes(stream, -1,
-                                     BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_RED);
+	_internal::win_change_attributes(stream, -1,
+									 BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_RED);
 #endif
   }
 
@@ -397,9 +397,9 @@ namespace _internal {
 //! this kind of hack.
 inline FILE *get_standard_stream(const std::ostream &stream) {
   if (&stream == &std::cout)
-    return stdout;
+	return stdout;
   else if ((&stream == &std::cerr) || (&stream == &std::clog))
-    return stderr;
+	return stderr;
 
   return nullptr;
 }
@@ -421,7 +421,7 @@ inline bool is_atty(const std::ostream &stream) {
   // handle this case gracefully and assume it's not a tty
   // if standard stream is not detected, and 0 is returned.
   if (!std_stream)
-    return false;
+	return false;
 
 #if defined(TERMCOLOR_OS_MACOS) || defined(TERMCOLOR_OS_LINUX)
   return ::isatty(fileno(std_stream));
@@ -442,42 +442,42 @@ inline void win_change_attributes(std::ostream &stream, int foreground, int back
   // manipulate colors by means of "std::stringstream" and hence
   // should do nothing in this case.
   if (!_internal::is_atty(stream))
-    return;
+	return;
 
   // get terminal handle
   HANDLE hTerminal = INVALID_HANDLE_VALUE;
   if (&stream == &std::cout)
-    hTerminal = GetStdHandle(STD_OUTPUT_HANDLE);
+	hTerminal = GetStdHandle(STD_OUTPUT_HANDLE);
   else if (&stream == &std::cerr)
-    hTerminal = GetStdHandle(STD_ERROR_HANDLE);
+	hTerminal = GetStdHandle(STD_ERROR_HANDLE);
 
   // save default terminal attributes if it unsaved
   if (!defaultAttributes) {
-    CONSOLE_SCREEN_BUFFER_INFO info;
-    if (!GetConsoleScreenBufferInfo(hTerminal, &info))
-      return;
-    defaultAttributes = info.wAttributes;
+	CONSOLE_SCREEN_BUFFER_INFO info;
+	if (!GetConsoleScreenBufferInfo(hTerminal, &info))
+	  return;
+	defaultAttributes = info.wAttributes;
   }
 
   // restore all default settings
   if (foreground == -1 && background == -1) {
-    SetConsoleTextAttribute(hTerminal, defaultAttributes);
-    return;
+	SetConsoleTextAttribute(hTerminal, defaultAttributes);
+	return;
   }
 
   // get current settings
   CONSOLE_SCREEN_BUFFER_INFO info;
   if (!GetConsoleScreenBufferInfo(hTerminal, &info))
-    return;
+	return;
 
   if (foreground != -1) {
-    info.wAttributes &= ~(info.wAttributes & 0x0F);
-    info.wAttributes |= static_cast<WORD>(foreground);
+	info.wAttributes &= ~(info.wAttributes & 0x0F);
+	info.wAttributes |= static_cast<WORD>(foreground);
   }
 
   if (background != -1) {
-    info.wAttributes &= ~(info.wAttributes & 0xF0);
-    info.wAttributes |= static_cast<WORD>(background);
+	info.wAttributes &= ~(info.wAttributes & 0xF0);
+	info.wAttributes |= static_cast<WORD>(background);
   }
 
   SetConsoleTextAttribute(hTerminal, info.wAttributes);

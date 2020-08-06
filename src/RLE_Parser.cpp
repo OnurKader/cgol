@@ -82,7 +82,7 @@ void RLE_Parser::parse_attributes()
 void RLE_Parser::parse_pattern()
 {
 	auto pattern_rows = split_string(strip_right(m_pattern_raw, "!"), "$");
-	for(std::size_t y = 0; y < pattern_rows.size(); y++)
+	for(std::size_t y = 0; y < pattern_rows.size(); ++y)
 	{
 		pattern_2d_array.push_back({});
 		std::string tmp_num_str;
@@ -94,16 +94,13 @@ void RLE_Parser::parse_pattern()
 			}
 			else
 			{
-				std::size_t num_cells = 0;
-				if(tmp_num_str.empty())
-				{
-					num_cells = 1;
-				}
-				else
-				{
-					num_cells = std::stoul(tmp_num_str);
-				}
-				for(std::size_t n = 0; n < num_cells; n++)
+				const std::size_t num_cells = [&] {
+					if(tmp_num_str.empty())
+						return 1UL;
+					return std::stoul(tmp_num_str);
+				}();
+
+				for(std::size_t n = 0; n < num_cells; ++n)
 				{
 					pattern_2d_array[y].push_back(static_cast<unsigned char>(c));
 				}
@@ -112,35 +109,36 @@ void RLE_Parser::parse_pattern()
 			}
 		}
 		// Fill in empty spaces at end of each row
-		for(std::size_t i = pattern_2d_array[y].size(); i < m_size_x; i++)
+		for(std::size_t i = pattern_2d_array[y].size(); i < m_size_x; ++i)
 		{
 			pattern_2d_array[y].push_back('b');
 		}
 	}
 	// Fill in empty lines till size_y_
-	for(std::size_t i = pattern_rows.size(); i < m_size_y; i++)
+	for(std::size_t i = pattern_rows.size(); i < m_size_y; ++i)
 	{
 		pattern_2d_array.push_back({});
-		for(std::size_t j = 0; j < m_size_x; j++)
+		for(std::size_t j = 0; j < m_size_x; ++j)
 		{
 			pattern_2d_array[i].push_back('b');
 		}
 	}
 }
 
-void RLE_Parser::open(const std::string& rle_string,
+void RLE_Parser::open(std::string_view rle_string,
 					  std::pair<std::size_t, std::size_t> grid_size_override)
 {
 	m_rle_string = read_file(rle_string);
 	m_size_y = grid_size_override.first;
 	m_size_x = grid_size_override.second;
+
 	parse_attributes();
 	parse_pattern();
 }
 
 void RLE_Parser::print() const
 {
-	for(const auto& line: pattern_2d_array)
+	for(auto&& line: pattern_2d_array)
 	{
 		for(auto c: line)
 		{
@@ -150,8 +148,11 @@ void RLE_Parser::print() const
 	}
 }
 
-std::size_t RLE_Parser::rows() const { return m_size_y; }
+std::size_t RLE_Parser::rows() const noexcept { return m_size_y; }
 
-std::size_t RLE_Parser::cols() const { return m_size_x; }
+std::size_t RLE_Parser::cols() const noexcept { return m_size_x; }
 
-std::vector<std::vector<unsigned char>> RLE_Parser::pattern() const { return pattern_2d_array; }
+std::vector<std::vector<unsigned char>> RLE_Parser::pattern() const noexcept
+{
+	return pattern_2d_array;
+}

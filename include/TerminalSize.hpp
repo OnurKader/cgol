@@ -6,17 +6,17 @@
 
 namespace cgol
 {
-static inline std::pair<size_t, size_t> terminal_size()
+static inline std::pair<std::size_t, std::size_t> terminal_size()
 {
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	int cols, rows;
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
 	cols = csbi.srWindow.Right - csbi.srWindow.Left + 1;
 	rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-	return {static_cast<size_t>(rows), static_cast<size_t>(cols)};
+	return {static_cast<std::size_t>(rows), static_cast<std::size_t>(cols)};
 }
 
-size_t terminal_width() { return terminal_size().second; }
+std::size_t terminal_width() { return terminal_size().second; }
 
 }	 // namespace cgol
 

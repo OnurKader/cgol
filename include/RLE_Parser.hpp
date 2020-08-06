@@ -36,18 +36,18 @@ public:
 	// e.g., if the RLE file has a grid size of 38x11 and the override is 40x15,
 	// then 40x15 will be used as the grid size - additional `b` dead cells will
 	// be inserted where needed.
-	void open(const std::string& rle_string,
+	void open(std::string_view rle_string,
 			  std::pair<std::size_t, std::size_t> grid_size_override = {0, 0});
 
 	// Returns the number of rows in the pattern
 	// This value is either:
 	// 1. the value parsed from file
 	// 2. or the value provided by the user as override
-	size_t rows() const;
+	std::size_t rows() const noexcept;
 
 	// Returns the number of cols in the pattern
 	// Similar to rows()
-	size_t cols() const;
+	std::size_t cols() const noexcept;
 
 	// Returns a 2D vector of the parssed pattern
 	// e.g.,
@@ -56,7 +56,7 @@ public:
 	//   [ababab],
 	//   [bbbbbb]
 	// ]
-	std::vector<std::vector<unsigned char>> pattern() const;
+	std::vector<std::vector<unsigned char>> pattern() const noexcept;
 };
 
 }	 // namespace cgol

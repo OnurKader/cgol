@@ -2,18 +2,18 @@
 
 using namespace cgol;
 
-Grid::Grid(const std::string& rle_filename, const std::pair<size_t, size_t>& grid_size) :
+Grid::Grid(std::string_view rle_filename, const std::pair<std::size_t, std::size_t>& grid_size) :
 	m_rows {grid_size.first}, m_cols {grid_size.second}, m_parser {}
 {
 	m_parser.open(rle_filename, {m_rows, m_cols});
 	m_rows = m_parser.rows();
 	m_cols = m_parser.cols();
-	const auto pattern = m_parser.pattern();
+	const auto& pattern = m_parser.pattern();
 
-	for(size_t i = 0; i < m_rows; i++)
+	for(std::size_t i = 0; i < m_rows; ++i)
 	{
 		m_grid.push_back({});
-		for(size_t j = 0; j < m_cols; j++)
+		for(std::size_t j = 0; j < m_cols; ++j)
 		{
 			if(pattern[i][j] == 'o')
 			{
@@ -27,14 +27,14 @@ Grid::Grid(const std::string& rle_filename, const std::pair<size_t, size_t>& gri
 	}
 }
 
-size_t Grid::rows() const { return m_rows; }
+std::size_t Grid::rows() const noexcept { return m_rows; }
 
 void Grid::print(std::ostream& os) const
 {
 	os << termcolor::bold;
-	for(size_t i = 0; i < m_rows; i++)
+	for(std::size_t i = 0; i < m_rows; ++i)
 	{
-		for(size_t j = 0; j < m_cols; j++)
+		for(std::size_t j = 0; j < m_cols; ++j)
 		{
 			const auto cell = m_grid[i][j];
 			if(cell == 1)
@@ -55,12 +55,12 @@ void Grid::tick()
 {
 	auto result = m_grid;
 
-	const int rows = static_cast<int>(m_rows);
-	const int cols = static_cast<int>(m_cols);
+	const auto rows = static_cast<long>(m_rows);
+	const auto cols = static_cast<long>(m_cols);
 
-	for(int i = 0; i < rows; i++)
+	for(long i = 0; i < rows; ++i)
 	{
-		for(int j = 0; j < cols; j++)
+		for(long j = 0; j < cols; ++j)
 		{
 			std::size_t neighbours = 0;
 

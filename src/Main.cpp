@@ -12,10 +12,13 @@ using namespace cgol;
 
 int main(int argc, char* argv[])
 {
-	std::signal(SIGINT, [](int) {
+	const auto show_cursor_and_exit_0 = [](int) {
 		cgol::show_console_cursor(true);
 		std::exit(0);
-	});
+	};
+
+	std::signal(SIGINT, show_cursor_and_exit_0);
+	std::signal(SIGTSTP, show_cursor_and_exit_0);
 
 	// Hide console cursor
 	cgol::show_console_cursor(false);
@@ -28,9 +31,10 @@ int main(int argc, char* argv[])
 
 	// Get terminal size and use as bounding box for game of life grid
 	const auto terminal_size = cgol::terminal_size();
-	size_t rows = terminal_size.first - 2, cols = (terminal_size.second) / 2;
+	std::size_t rows = terminal_size.first - 2UL;
+	std::size_t cols = terminal_size.second / 2UL;
 
-	// Initiali grid with dimensions {rows, cols}
+	// Initialize grid with dimensions {rows, cols}
 	cgol::Grid grid(argv[1], {rows, cols});
 
 	while(true)
